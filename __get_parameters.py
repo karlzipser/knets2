@@ -2,47 +2,46 @@
 from knets2.imports import *
 
 
-def get_p_from_args(runtimeargs,codingtimeargs,trainargs):
-    _runtime_to_codetime_parameters(runtimeargs,codingtimeargs)
-    p=_get_p(codingtimeargs)
+def get_p_from_args(project_args,all_args,ensemble_args):
+    _project_args_to_all_args(project_args,all_args)
+    p=_get_p(all_args)
     if not len(p.project):
         cE("ERROR, project not specified")
         assert False
     p.runfolder=opjh('kprojects',p.project,'runs',time_str())
     _check_parameters(p)
-    lr = p.lr
-    if len(trainargs):
-        mergedict(p,trainargs[p.startk])
-    if lr:
-        p.lr=lr # this should be comming from command line
-    kprint(p.__dict__,title='p based on codingtimeargs, rutimeargs and command line args')
-    p.command_line='$ python3 [-m] '+' '.join(sys.argv)
+    if len(ensemble_args):
+        assert 'lr' not in p.startk
+        mergedict(p,ensemble_args[p.startk])
+    if False:
+        kprint(p.__dict__,title='p based on all_args, rutimeargs and command line args')
+    p.command_line='$ python3 '+' '.join(sys.argv)
     print(p.command_line)
-    #_set_weights_path(p)
     return p
 
 
-def _runtime_to_codetime_parameters(runtimeargs,codingtimeargs):
-    for k in runtimeargs:
+def _project_args_to_all_args(project_args,all_args):
+    for k in project_args:
         if k=='todo':
             v='. . . '
         else:
-            v=runtimeargs[k]
-        clp('runtime:','`--r',d2n(k,'=',v))
+            v=project_args[k]
+        if False:
+            clp('runtime:','`--r',d2n(k,'=',v))
 
-        if k not in codingtimeargs:
-            cE(k,'not in codingtimeargs')
+        if k not in all_args:
+            cE(k,'not in all_args')
             assert False
-        if type(runtimeargs[k])!=type(codingtimeargs[k]):
-            cE("type(runtimeargs[",k,"])!=type(codingtimeargs[",k,"])")
-        codingtimeargs[k]=runtimeargs[k]
+        if type(project_args[k])!=type(all_args[k]):
+            cE("type(project_args[",k,"])!=type(all_args[",k,"])")
+        all_args[k]=project_args[k]
 
 
-def _get_p(codingtimeargs):
+def _get_p(all_args):
     if ('p' not in locals()) and (not interactive()):
-        p=getparser(**codingtimeargs)
+        p=getparser(**all_args)
     else:
-        p=kws2class(codingtimeargs)
+        p=kws2class(all_args)
         if '__file__' not in locals():
             cE("Warning, __file__=",__file__)
     return p
