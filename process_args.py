@@ -97,17 +97,17 @@ def _get_project_name_from_command_line():
     return _project
 
 
+def get_p():
+    _package_name='knets2'
 
-_package_name='knets2'
+    _all_args=importlib.import_module(d2p(_package_name,'parameters.all')).all_args
 
-_all_args=importlib.import_module(d2p(_package_name,'parameters.all')).all_args
+    _project_args=importlib.import_module(
+        d2p(_package_name,'parameters.project',_get_project_name_from_command_line())).project_args
 
-_project_args=importlib.import_module(
-    d2p(_package_name,'parameters.project',_get_project_name_from_command_line())).project_args
+    _ensemble_args=importlib.import_module(d2p(_package_name,'parameters.ensemble')).ensemble_args
 
-_ensemble_args=importlib.import_module(d2p(_package_name,'parameters.ensemble')).ensemble_args
+    p=_get_p_from_args(_project_args,_all_args,_ensemble_args)
 
-p=_get_p_from_args(_project_args,_all_args,_ensemble_args)
-
-
+    return p
 #EOF

@@ -1,4 +1,8 @@
-from knets2.process_args import *
+
+from knets2.imports import *
+from knets2.process_args import get_p
+
+p=get_p()
 
 kprint(p.__dict__,'p.__dict__')
 
@@ -16,6 +20,6 @@ def set_weights_path(p):
         p.weights_path=opj(_w,'weights')
 
 
-set_weights_path(p)
+#set_weights_path(p)
 
 #EOF
