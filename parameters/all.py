@@ -93,6 +93,7 @@ all_args=dict(
 
     sleeptime=0,
     task='train', # or 'test'
+    shuffle=True,
 
     nc=3,
     nz=100,

@@ -211,7 +211,7 @@ def get_dataloader(p):
                 proportion_of_data_to_use=1.#,p.proportion_of_data_to_use doesn't work
             ),
             batch_size=p.batch_size,
-            shuffle=False,
+            shuffle=p.shuffle,
             num_workers=p.workers,
             persistent_workers=True,
     )
