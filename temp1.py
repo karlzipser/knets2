@@ -43,7 +43,10 @@ if __name__ == '__main__':
             
             if timer.rcheck():
                 g=get_image_of_tensor(data,mapping,warn_if_nan=False)
-                sh(g,r=0,e=0)
+                figure(1001,figsize=(p.figwidth,p.figheight))
+                plt.imshow(g)
+                #sh(g,1,r=0,e=0)
+                #figure(1,figsize=(p.figheight,p.figwidth))
                 spause()
                 #cm(r=1)
 
