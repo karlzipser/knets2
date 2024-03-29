@@ -1,18 +1,22 @@
+from utilz2 import *
+cg(time.time())
 
-from knets2.imports import *
-from knets2.process_args import get_p
-cg(__file__,time.time(),r=0)
-p=get_p()
-
-#kprint(p.__dict__,'p.__dict__')
-
-##############
-
-from knets2.dataloaders.multi_folder_dataloader import get_dataloader
-from utilz2.dev.view_tensor import get_image_of_tensor
 if __name__ == '__main__':
     import multiprocessing
-    #multiprocessing.freeze_support()
+    multiprocessing.freeze_support()
+    from knets2.imports import *
+    from knets2.process_args import get_p
+    cg(__file__,time.time(),r=0)
+    p=get_p()
+
+    #kprint(p.__dict__,'p.__dict__')
+
+    ##############
+
+    from knets2.dataloaders.multi_folder_dataloader import get_dataloader
+    from utilz2.dev.view_tensor import get_image_of_tensor
+
+    timer=Timer(10)
     dataloader=get_dataloader(p)
     while True:
         for i, datadic in enumerate(dataloader, 0):
@@ -33,9 +37,13 @@ if __name__ == '__main__':
                 8:2,
             }
             g=get_image_of_tensor(data,mapping,warn_if_nan=False)
-            sh(g,r=0,e=0)
-            spause()
-            #cm(r=1)
+            if timer.rcheck():
+                sh(g,r=0,e=0)
+                spause()
+                #cm(r=1)
+
+
+
 
 ###########
 

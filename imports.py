@@ -1,6 +1,5 @@
 
 from utilz2 import *
-print('knet path=',pname(__file__))
 import random
 import torch
 import torch.nn as nn
