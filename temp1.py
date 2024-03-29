@@ -1,5 +1,5 @@
 from utilz2 import *
-print(10*'\n')
+
 cg(time.time())
 
 if __name__ == '__main__':
@@ -17,14 +17,16 @@ if __name__ == '__main__':
     from knets2.dataloaders.multi_folder_dataloader import get_dataloader
     from utilz2.dev.view_tensor import get_image_of_tensor
 
+    freq=Timer(10)
     timer=Timer(10)
+    timer.trigger()
 
     dataloader=get_dataloader(p)
     while True:
         for i, datadic in enumerate(dataloader, 0):
             data=datadic['img']
             printr(i,data.size())
-            timer.freq()
+            freq.freq()
 
             bs=data.size()[0]
             mapping={
