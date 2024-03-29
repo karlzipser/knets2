@@ -16,6 +16,7 @@ class Multi_imagefolder_dataset(torch.utils.data.Dataset):
         include_untransformed_copy_of_img=False,
     ):
         super(Multi_imagefolder_dataset,_).__init__()
+        print("Multi_imagefolder_dataset::__init__")
         _.e=e
         _.include_untransformed_copy_of_img=include_untransformed_copy_of_img
         _.asrgb255=asrgb255
@@ -58,7 +59,8 @@ class Multi_imagefolder_dataset(torch.utils.data.Dataset):
         return x
 
     def __getitem__(_, index):
-
+        #if index==717:
+        #    print(index)
         if False:#_.proportion_of_data_to_use<1:
             ln=_.__len__()
             maxindex=int(_.proportion_of_data_to_use*ln)
@@ -73,6 +75,7 @@ class Multi_imagefolder_dataset(torch.utils.data.Dataset):
             r=[1]
         for p in _.imgpathsdict:
             for i in r:
+                #print(index,len(_.imgpathsdict[p]))
                 f=_.imgpathsdict[p][index]
                 cb(f,e=_.e)
                 x=imread(f)
@@ -208,8 +211,9 @@ def get_dataloader(p):
                 proportion_of_data_to_use=1.#,p.proportion_of_data_to_use doesn't work
             ),
             batch_size=p.batch_size,
-            shuffle=True,
+            shuffle=False,
             num_workers=p.workers,
+            persistent_workers=True,
     )
     
     return dataloader

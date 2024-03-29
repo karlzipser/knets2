@@ -1,4 +1,5 @@
 from utilz2 import *
+print(10*'\n')
 cg(time.time())
 
 if __name__ == '__main__':
@@ -17,12 +18,13 @@ if __name__ == '__main__':
     from utilz2.dev.view_tensor import get_image_of_tensor
 
     timer=Timer(10)
+
     dataloader=get_dataloader(p)
     while True:
         for i, datadic in enumerate(dataloader, 0):
             data=datadic['img']
-            #print(data.size())
-            
+            printr(i,data.size())
+            timer.freq()
 
             bs=data.size()[0]
             mapping={
@@ -36,8 +38,9 @@ if __name__ == '__main__':
                 7:2,
                 8:2,
             }
-            g=get_image_of_tensor(data,mapping,warn_if_nan=False)
+            
             if timer.rcheck():
+                g=get_image_of_tensor(data,mapping,warn_if_nan=False)
                 sh(g,r=0,e=0)
                 spause()
                 #cm(r=1)
