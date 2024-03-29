@@ -17,15 +17,22 @@ if __name__ == '__main__':
     from knets2.dataloaders.multi_folder_dataloader import get_dataloader
     from utilz2.dev.view_tensor import get_image_of_tensor
 
+    starttimer=Timer()
     freq=Timer(10)
-    timer=Timer(10)
+    timer=Timer(60)
     timer.trigger()
 
     dataloader=get_dataloader(p)
     while True:
         for i, datadic in enumerate(dataloader, 0):
             data=datadic['img']
-            printr(i,data.size())
+
+            print(i,data.size())
+            if data.size()[0]<p.batch_size:
+                cm(data.size())
+                continue
+            assert data.size()[0]==p.batch_size
+            
             freq.freq()
 
             bs=data.size()[0]
@@ -41,7 +48,7 @@ if __name__ == '__main__':
                 8:2,
             }
             
-            if timer.rcheck():
+            if timer.rcheck() or starttimer.time()<10:
                 g=get_image_of_tensor(data,mapping,warn_if_nan=False)
                 figure(1001,figsize=(p.figwidth,p.figheight))
                 plt.imshow(g)
