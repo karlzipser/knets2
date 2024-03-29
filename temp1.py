@@ -17,7 +17,7 @@ if __name__ == '__main__':
     while True:
         for i, datadic in enumerate(dataloader, 0):
             data=datadic['img']
-            print(data.size())
+            #print(data.size())
             
 
             bs=data.size()[0]
@@ -33,7 +33,7 @@ if __name__ == '__main__':
                 8:2,
             }
             g=get_image_of_tensor(data,mapping,warn_if_nan=False)
-            sh(g,r=0)
+            sh(g,r=0,e=0)
             spause()
             #cm(r=1)
 
