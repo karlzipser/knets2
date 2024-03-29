@@ -26,6 +26,7 @@ if __name__ == '__main__':
     while True:
         for i, datadic in enumerate(dataloader, 0):
             data=datadic['img']
+            data[:,:3,0,0]=1e-10
 
             printr(i,data.size())
             if data.size()[0]<p.batch_size:
