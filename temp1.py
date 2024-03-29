@@ -27,12 +27,11 @@ if __name__ == '__main__':
         for i, datadic in enumerate(dataloader, 0):
             data=datadic['img']
 
-            print(i,data.size())
+            printr(i,data.size())
             if data.size()[0]<p.batch_size:
-                cm(data.size())
                 continue
             assert data.size()[0]==p.batch_size
-            
+
             freq.freq()
 
             bs=data.size()[0]
