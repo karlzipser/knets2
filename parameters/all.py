@@ -101,6 +101,8 @@ all_args=dict(
 
     n_random_rectangle_masks=0,
     swap_image_portions=False,
+
+    extra_params={},
 )
 assert not all_args['lr'] # non-zero values should be set in command line
 
